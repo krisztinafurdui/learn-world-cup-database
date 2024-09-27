@@ -44,5 +44,10 @@ do
       # get new team_id
       OPPONENT_TEAM_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$OPPONENT'")
     fi
+    INSERT_GAME_RESULT=$($PSQL "INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) VALUES('$YEAR', '$ROUND', '$WINNER_TEAM_ID', '$OPPONENT_TEAM_ID', '$WINNER_GOALS', '$OPPONENT_GOALS')")
+    if [[ INSERT_GAME_RESULT == "INSERT 0 1" ]]
+    then
+      echo Inserted into games, $YEAR
+    fi
   fi
 done
